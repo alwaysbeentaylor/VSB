@@ -14,6 +14,7 @@ export interface CalendarEvent {
   date: string;
   type: 'Vakantie' | 'Activiteit' | 'Vrije Dag';
   grades: string[]; // 'All', 'L1', 'K2', etc.
+  description?: string;
 }
 
 export interface PhotoAlbum {
@@ -44,3 +45,30 @@ export type PageView =
   | 'gallery' 
   | 'box' 
   | 'admin';
+
+export interface FormSubmission {
+  id: string;
+  date: string;
+  type: 'Contact' | 'Inschrijving' | 'Rondleiding';
+  name: string;
+  email?: string;
+  details: string;
+  status: 'Nieuw' | 'Gelezen';
+}
+
+export interface SiteConfig {
+  menuUrl: string; // URL to Hanssens
+  homeHeroImage: string;
+  homeHeroPosition: string; // e.g. "center center"
+  homeTitle: string;
+  homeSubtitle: string;
+  aboutText: string;
+  contactEmail: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  sender: 'user' | 'bot';
+  text: string;
+  timestamp: Date;
+}

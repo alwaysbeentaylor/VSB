@@ -1,4 +1,14 @@
-import { NewsItem, CalendarEvent, PhotoAlbum, Teacher } from './types';
+import { NewsItem, CalendarEvent, PhotoAlbum, Teacher, SiteConfig, FormSubmission, ChatMessage } from './types';
+
+export const DEFAULT_CONFIG: SiteConfig = {
+  menuUrl: 'https://order.hanssens.be/menu/O56/OUDE-VESTIGING',
+  homeHeroImage: 'https://picsum.photos/1920/1080?random=99',
+  homeHeroPosition: 'center center',
+  homeTitle: 'Samen groeien,\nelk op zijn eigen ritme',
+  homeSubtitle: 'Vrije Basisschool Sijsele',
+  aboutText: 'In VBS Sint-Maarten staat het kind centraal. Wij geloven in onderwijs dat niet alleen kennis overdraagt, maar ook werkt aan de totale persoonlijkheidsontwikkeling.',
+  contactEmail: 'info@vrijebasisschoolsijsele.be'
+};
 
 export const MOCK_NEWS: NewsItem[] = [
   {
@@ -31,9 +41,9 @@ export const MOCK_NEWS: NewsItem[] = [
 ];
 
 export const MOCK_EVENTS: CalendarEvent[] = [
-  { id: '1', title: 'Pedagogische studiedag', date: '2023-11-15', type: 'Vrije Dag', grades: ['All'] },
-  { id: '2', title: 'Sinterklaas op school', date: '2023-12-06', type: 'Activiteit', grades: ['All'] },
-  { id: '3', title: 'Kerstvakantie', date: '2023-12-25', type: 'Vakantie', grades: ['All'] },
+  { id: '1', title: 'Pedagogische studiedag', date: '2023-11-15', type: 'Vrije Dag', grades: ['All'], description: 'Vrije dag voor de leerlingen.' },
+  { id: '2', title: 'Sinterklaas op school', date: '2023-12-06', type: 'Activiteit', grades: ['All'], description: 'De Sint komt langs in alle klassen.' },
+  { id: '3', title: 'Kerstvakantie', date: '2023-12-25', type: 'Vakantie', grades: ['All'], description: 'Prettige feesten!' },
 ];
 
 export const MOCK_ALBUMS: PhotoAlbum[] = [
@@ -58,4 +68,13 @@ export const MOCK_TEAM: Teacher[] = [
   { id: '2', role: 'Juf 1e Kleuter', imageUrl: 'https://picsum.photos/400/400?random=21', group: 'Kleuter' },
   { id: '3', role: 'Meester 5e Leerjaar', imageUrl: 'https://picsum.photos/400/400?random=22', group: 'Lager' },
   { id: '4', role: 'Zorgcoördinator', imageUrl: 'https://picsum.photos/400/400?random=23', group: 'Zorg' },
+];
+
+export const MOCK_SUBMISSIONS: FormSubmission[] = [
+    { id: '1', date: '2023-10-25', type: 'Contact', name: 'Jan Peeters', email: 'jan@test.be', details: 'Wanneer is de volgende info-avond?', status: 'Nieuw' },
+    { id: '2', date: '2023-10-24', type: 'Inschrijving', name: 'Sarah de Boer', email: 'sarah@test.be', details: 'Graag rondleiding voor instap peuterklas', status: 'Gelezen' },
+];
+
+export const INITIAL_CHAT_MESSAGES: ChatMessage[] = [
+    { id: '0', sender: 'bot', text: 'Hallo! Ik ben de virtuele assistent van VBS Sint-Maarten. Heeft u een vraag over inschrijvingen, de kalender of praktische zaken?', timestamp: new Date() }
 ];
