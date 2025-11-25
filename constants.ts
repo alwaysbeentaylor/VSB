@@ -2,7 +2,7 @@ import { NewsItem, CalendarEvent, PhotoAlbum, Teacher, SiteConfig, FormSubmissio
 
 export const DEFAULT_CONFIG: SiteConfig = {
   menuUrl: 'https://order.hanssens.be/menu/O56/OUDE-VESTIGING',
-  homeHeroImage: 'https://picsum.photos/1920/1080?random=99',
+  homeHeroImage: '/images/hero/school-main.jpeg',
   homeHeroPosition: 'center center',
   homeTitle: 'Samen groeien,\nelk op zijn eigen ritme',
   homeSubtitle: 'Vrije Basisschool Sijsele',
@@ -17,7 +17,7 @@ export const MOCK_NEWS: NewsItem[] = [
     content: 'Wat hebben we genoten van de massale opkomst. De kleuters hebben hun beste beentje voorgezet. Bekijk zeker de foto\'s in het album.',
     date: '2023-10-15',
     expiryDate: '2024-01-01',
-    imageUrl: 'https://picsum.photos/800/600?random=1',
+    imageUrl: '/images/news/Bibliotheek - 1 van 1 (13).jpeg',
     category: 'Kleuter'
   },
   {
@@ -26,7 +26,7 @@ export const MOCK_NEWS: NewsItem[] = [
     content: 'De inschrijvingen starten binnenkort. Vergeet niet uw afspraak te maken voor een rondleiding.',
     date: '2023-11-01',
     expiryDate: '2024-09-01',
-    imageUrl: 'https://picsum.photos/800/600?random=2',
+    imageUrl: '/images/news/Bibliotheek - 1 van 1 (15).jpeg',
     category: 'Algemeen'
   },
   {
@@ -35,7 +35,7 @@ export const MOCK_NEWS: NewsItem[] = [
     content: 'Met laarzen aan trokken we het bos in. We leerden over paddenstoelen en bladeren.',
     date: '2023-10-20',
     expiryDate: '2023-11-20',
-    imageUrl: 'https://picsum.photos/800/600?random=3',
+    imageUrl: '/images/news/Bibliotheek - 1 van 1 (17).jpeg',
     category: 'Lager'
   }
 ];
@@ -49,17 +49,25 @@ export const MOCK_EVENTS: CalendarEvent[] = [
 export const MOCK_ALBUMS: PhotoAlbum[] = [
   {
     id: '1',
-    location: 'Verrekijker',
+    location: 'Kleuter Klooster',
     title: 'Spelen in de herfstzon',
-    coverImage: 'https://picsum.photos/800/600?random=10',
-    images: ['https://picsum.photos/800/600?random=10', 'https://picsum.photos/800/600?random=11']
+    coverImage: '/images/gallery/Bibliotheek - 1 van 1 (1).jpeg',
+    images: [
+      '/images/gallery/Bibliotheek - 1 van 1 (1).jpeg',
+      '/images/gallery/Bibliotheek - 1 van 1 (3).jpeg',
+      '/images/gallery/Bibliotheek - 1 van 1 (5).jpeg'
+    ]
   },
   {
     id: '2',
-    location: 'Lagere School',
-    title: 'Sportdag 2023',
-    coverImage: 'https://picsum.photos/800/600?random=12',
-    images: ['https://picsum.photos/800/600?random=12', 'https://picsum.photos/800/600?random=13']
+    location: 'Lager',
+    title: 'Activiteiten 2023',
+    coverImage: '/images/gallery/Bibliotheek - 1 van 1 (7).jpeg',
+    images: [
+      '/images/gallery/Bibliotheek - 1 van 1 (7).jpeg',
+      '/images/gallery/Bibliotheek - 1 van 1 (9).jpeg',
+      '/images/gallery/Bibliotheek - 1 van 1 (11).jpeg'
+    ]
   }
 ];
 
@@ -71,10 +79,10 @@ export const MOCK_TEAM: Teacher[] = [
 ];
 
 export const MOCK_SUBMISSIONS: FormSubmission[] = [
-    { id: '1', date: '2023-10-25', type: 'Contact', name: 'Jan Peeters', email: 'jan@test.be', details: 'Wanneer is de volgende info-avond?', status: 'Nieuw' },
-    { id: '2', date: '2023-10-24', type: 'Inschrijving', name: 'Sarah de Boer', email: 'sarah@test.be', details: 'Graag rondleiding voor instap peuterklas', status: 'Gelezen' },
+  { id: '1', date: '2023-10-25', type: 'Contact', name: 'Jan Peeters', email: 'jan@test.be', details: 'Wanneer is de volgende info-avond?', status: 'Nieuw' },
+  { id: '2', date: '2023-10-24', type: 'Inschrijving', name: 'Sarah de Boer', email: 'sarah@test.be', details: 'Graag rondleiding voor instap peuterklas', status: 'Gelezen' },
 ];
 
 export const INITIAL_CHAT_MESSAGES: ChatMessage[] = [
-    { id: '0', sender: 'bot', text: 'Hallo! Ik ben de virtuele assistent van VBS Sint-Maarten. Heeft u een vraag over inschrijvingen, de kalender of praktische zaken?', timestamp: new Date() }
+  { id: '0', sender: 'bot', text: 'Hallo! Ik ben de virtuele assistent van VBS Sint-Maarten. Heeft u een vraag over inschrijvingen, de kalender of praktische zaken?', timestamp: new Date() }
 ];
