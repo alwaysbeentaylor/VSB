@@ -17,6 +17,22 @@ export const HERO_IMAGES = [
   '/images/hero/school-kids.jpeg'
 ];
 
+// Gallery images for About page carousel
+export const GALLERY_IMAGES = [
+  '/images/gallery/bibliotheek-1.jpeg',
+  '/images/gallery/bibliotheek-3.jpeg',
+  '/images/gallery/bibliotheek-5.jpeg',
+  '/images/gallery/bibliotheek-7.jpeg',
+  '/images/gallery/bibliotheek-9.jpeg',
+  '/images/gallery/bibliotheek-11.jpeg',
+  '/images/hero/school-main.jpeg',
+  '/images/hero/school-building.jpeg',
+  '/images/hero/school-kids.jpeg',
+  '/images/news/bibliotheek-13.jpeg',
+  '/images/news/bibliotheek-15.jpeg',
+  '/images/news/bibliotheek-17.jpeg'
+];
+
 export const MOCK_NEWS: NewsItem[] = [
   {
     id: '1',

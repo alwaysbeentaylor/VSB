@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { 
-  Menu, X, Phone, Mail, MapPin, Calendar, 
-  BookOpen, Users, Camera, Star, Info, 
+import {
+  Menu, X, Phone, Mail, MapPin, Calendar,
+  BookOpen, Users, Camera, Star, Info,
   ChevronRight, Lock, ExternalLink, Download,
   Trash2, Plus, Edit, Image as ImageIcon, Sparkles, Check, Video, School,
-  MessageCircle, Send, Settings, FileText, Inbox
+  MessageCircle, Send, Settings, FileText, Inbox, ChevronUp, ChevronDown
 } from 'lucide-react';
 import { generateNewsContent, generateChatResponse } from './services/geminiService';
-import { MOCK_NEWS, MOCK_EVENTS, MOCK_ALBUMS, MOCK_TEAM, DEFAULT_CONFIG, MOCK_SUBMISSIONS, INITIAL_CHAT_MESSAGES, HERO_IMAGES } from './constants';
+import { MOCK_NEWS, MOCK_EVENTS, MOCK_ALBUMS, MOCK_TEAM, DEFAULT_CONFIG, MOCK_SUBMISSIONS, INITIAL_CHAT_MESSAGES, HERO_IMAGES, GALLERY_IMAGES } from './constants';
 import { NewsItem, CalendarEvent, PhotoAlbum, PageView, Teacher, SiteConfig, FormSubmission, ChatMessage } from './types';
-import { HeroCarousel, ParentsPage, GalleryPage } from './NewComponents';
+import { HeroCarousel, ParentsPage, GalleryPage, PhotoWheelCarousel } from './NewComponents';
 
 // --- UTILS ---
 const addToGoogleCalendar = (event: CalendarEvent) => {
@@ -268,19 +268,81 @@ const HomePage = ({ news, setPage, config }: { news: NewsItem[], setPage: (p: Pa
             {config.homeTitle.split('\n').map((line, i) => <div key={i}>{line}</div>)}
           </h2>
           <p className="text-xl text-gray-200 mb-8 font-medium">{config.homeSubtitle}</p>
-          
+
           <div className="flex flex-wrap gap-4">
-             <button onClick={() => setPage('enroll')} className="bg-school-red text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-               Ik wil inschrijven
+             <button onClick={() => setPage('about')} className="bg-white text-school-dark px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition shadow-lg">
+               Meer over onze school
              </button>
-             <button onClick={() => setPage('about')} className="bg-white/10 backdrop-blur-md text-white border-2 border-white/50 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition shadow-lg">
-               Ontdek onze visie
-             </button>
-             <button onClick={() => alert("De virtuele rondleiding wordt gelanceerd in Q2 2026!")} className="bg-school-orange text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center gap-3">
-               <Video size={24} />
-               Virtuele Tour
+             <button onClick={() => setPage('contact')} className="bg-white/10 backdrop-blur-md text-white border-2 border-white/50 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition shadow-lg">
+               Contact
              </button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Welkom sectie - Meer informatie, minder verkoop */}
+    <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="text-center max-w-3xl mx-auto mb-16">
+        <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
+          Welkom bij VBS Sint-Maarten
+        </h2>
+        <p className="text-xl text-gray-700 leading-relaxed">
+          Een kleinschalige basisschool in het hart van Sijsele waar elk kind gezien wordt.
+          Met meer dan 50 jaar ervaring bieden we kwalitatief onderwijs in een warme, vertrouwde omgeving.
+        </p>
+      </div>
+
+      {/* Simpele cijfers - meer informatief */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div className="text-center p-6">
+          <div className="text-4xl font-display font-bold text-school-green mb-2">50+</div>
+          <div className="text-sm text-gray-600">Jaar traditie</div>
+        </div>
+        <div className="text-center p-6">
+          <div className="text-4xl font-display font-bold text-school-red mb-2">~200</div>
+          <div className="text-sm text-gray-600">Leerlingen</div>
+        </div>
+        <div className="text-center p-6">
+          <div className="text-4xl font-display font-bold text-school-orange mb-2">25+</div>
+          <div className="text-sm text-gray-600">Personeelsleden</div>
+        </div>
+        <div className="text-center p-6">
+          <div className="text-4xl font-display font-bold text-school-dark mb-2">3</div>
+          <div className="text-sm text-gray-600">Locaties</div>
+        </div>
+      </div>
+
+      {/* Wat ons kenmerkt */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="text-center p-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-school-green/10 rounded-full mb-4">
+            <Users className="text-school-green" size={32} />
+          </div>
+          <h3 className="font-bold text-xl text-gray-900 mb-3">Kleinschalig & Familiaal</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Een school waar iedereen elkaar kent en waar persoonlijke aandacht centraal staat.
+          </p>
+        </div>
+
+        <div className="text-center p-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-school-red/10 rounded-full mb-4">
+            <Star className="text-school-red" size={32} />
+          </div>
+          <h3 className="font-bold text-xl text-gray-900 mb-3">Sterk Zorgteam</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Gedifferentieerd onderwijs en begeleiding op maat voor elk kind.
+          </p>
+        </div>
+
+        <div className="text-center p-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-school-orange/10 rounded-full mb-4">
+            <BookOpen className="text-school-orange" size={32} />
+          </div>
+          <h3 className="font-bold text-xl text-gray-900 mb-3">Breed Aanbod</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Van sport en kunst tot STEM en talentontwikkeling. Ruime keuze aan activiteiten.
+          </p>
         </div>
       </div>
     </div>
@@ -310,62 +372,339 @@ const HomePage = ({ news, setPage, config }: { news: NewsItem[], setPage: (p: Pa
     </div>
 
     {/* Latest News */}
-    <div className="max-w-7xl mx-auto px-4 py-20">
-      <div className="flex justify-between items-end mb-10">
-        <div>
-          <h2 className="text-4xl font-display font-bold text-gray-900">Laatste Nieuws</h2>
-          <p className="text-gray-500 mt-2 text-lg">Blijf op de hoogte van het leven op school</p>
-        </div>
-        <button onClick={() => setPage('news')} className="text-school-red font-bold text-lg flex items-center hover:underline">
-          Alle berichten <ChevronRight size={20} />
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {news.slice(0, 3).map(item => (
-          <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 border border-gray-100 group flex flex-col h-full">
-            <div className="h-56 overflow-hidden relative">
-              <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-              <div className="absolute top-4 left-4">
-                   <span className="text-xs font-bold text-white bg-school-green/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">{item.category}</span>
-              </div>
-            </div>
-            <div className="p-8 flex-1 flex flex-col">
-              <div className="text-sm text-gray-400 mb-3 flex items-center gap-2">
-                  <Calendar size={14} />
-                  {new Date(item.date).toLocaleDateString('nl-BE')}
-              </div>
-              <h3 className="font-bold text-xl text-gray-900 mb-3 leading-tight">{item.title}</h3>
-              <p className="text-gray-600 text-base line-clamp-3 mb-6 flex-1">{item.content}</p>
-              <button onClick={() => setPage('news')} className="text-school-red font-bold text-sm uppercase tracking-wide self-start hover:underline">Lees meer</button>
-            </div>
+    <div className="bg-gray-50 py-20">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between items-end mb-10">
+          <div>
+            <h2 className="text-4xl font-display font-bold text-gray-900">Laatste Nieuws</h2>
+            <p className="text-gray-500 mt-2 text-lg">Blijf op de hoogte van het leven op school</p>
           </div>
-        ))}
+          <button onClick={() => setPage('news')} className="text-school-red font-bold text-lg flex items-center hover:underline">
+            Alle berichten <ChevronRight size={20} />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {news.slice(0, 3).map(item => (
+            <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 border border-gray-100 group flex flex-col h-full">
+              <div className="h-56 overflow-hidden relative">
+                <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                <div className="absolute top-4 left-4">
+                     <span className="text-xs font-bold text-white bg-school-green/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">{item.category}</span>
+                </div>
+              </div>
+              <div className="p-8 flex-1 flex flex-col">
+                <div className="text-sm text-gray-400 mb-3 flex items-center gap-2">
+                    <Calendar size={14} />
+                    {new Date(item.date).toLocaleDateString('nl-BE')}
+                </div>
+                <h3 className="font-bold text-xl text-gray-900 mb-3 leading-tight">{item.title}</h3>
+                <p className="text-gray-600 text-base line-clamp-3 mb-6 flex-1">{item.content}</p>
+                <button onClick={() => setPage('news')} className="text-school-red font-bold text-sm uppercase tracking-wide self-start hover:underline">Lees meer</button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
 );
 
-const AboutPage = ({ config }: { config: SiteConfig }) => (
-  <div className="max-w-5xl mx-auto px-4 py-16 animate-fade-in">
-    <div className="text-center max-w-3xl mx-auto mb-16">
-        <h1 className="text-5xl font-display font-bold text-school-dark mb-6">Over Onze School</h1>
-        <p className="text-xl text-gray-600 leading-relaxed">{config.aboutText}</p>
+const AboutPage = ({ config, galleryImages }: { config: SiteConfig; galleryImages: string[] }) => (
+  <div className="animate-fade-in">
+    {/* Hero Section */}
+    <div className="relative h-[400px] w-full overflow-hidden">
+      <img
+        src="https://picsum.photos/1920/400?random=51"
+        className="w-full h-full object-cover"
+        alt="VBS Sint-Maarten"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-school-dark/90 to-school-dark/60 flex items-center">
+        <div className="max-w-7xl mx-auto px-4 w-full">
+          <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
+            Over VBS Sint-Maarten
+          </h1>
+          <p className="text-2xl text-white/90 max-w-2xl">
+            Een school met een hart voor elk kind
+          </p>
+        </div>
+      </div>
     </div>
-    <img src="https://picsum.photos/1200/500?random=50" className="w-full h-[400px] object-cover rounded-2xl mb-16 shadow-lg" alt="Schoolplein" />
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-lg text-gray-700 leading-relaxed">
-      <section>
-        <h2 className="text-3xl font-display font-bold text-school-dark mb-4 flex items-center gap-3"><Star className="text-school-red"/> Onze Visie</h2>
-        <p>Vanuit onze christelijke inspiratie bouwen we aan een warme gemeenschap waar iedereen zich thuis mag voelen. Respect, vertrouwen en geborgenheid zijn onze kernwaarden.</p>
-      </section>
-      <section className="bg-gray-50 p-8 rounded-2xl">
-        <h2 className="text-3xl font-display font-bold text-school-dark mb-4 flex items-center gap-3"><Users className="text-school-green"/> Zorg op maat</h2>
-        <p className="mb-4">Elk kind heeft zijn eigen talenten. Ons zorgteam differentieert in de klas zodat elk kind op eigen tempo groeit.</p>
-        <ul className="space-y-2 mt-4">
-            <li className="flex items-center gap-2"><Check size={18} className="text-school-green"/> Sterk zorgbeleid</li>
-            <li className="flex items-center gap-2"><Check size={18} className="text-school-green"/> Aandacht voor welbevinden</li>
-        </ul>
-      </section>
+
+    {/* Intro */}
+    <div className="max-w-5xl mx-auto px-4 py-16">
+      <div className="text-center max-w-3xl mx-auto">
+        <p className="text-xl text-gray-700 leading-relaxed">
+          {config.aboutText}
+        </p>
+      </div>
+    </div>
+
+    {/* Photo Carousel */}
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-display font-bold text-gray-900 mb-3">Ontdek onze school</h2>
+        <p className="text-gray-600">Een kijkje in onze klassen, speelplaats en school</p>
+      </div>
+      <PhotoWheelCarousel images={galleryImages} />
+    </div>
+
+    {/* Onze Visie & Missie */}
+    <div className="bg-gradient-to-br from-school-green/5 to-white py-20">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+          <div>
+            <div className="inline-block bg-school-red/10 px-4 py-2 rounded-full mb-4">
+              <span className="text-school-red font-bold text-sm uppercase tracking-wide">Onze Visie</span>
+            </div>
+            <h2 className="text-4xl font-display font-bold text-school-dark mb-6 flex items-center gap-3">
+              <Star className="text-school-red"/>
+              Samen Groeien, Samen Leren
+            </h2>
+            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+              Vanuit onze <strong>christelijke inspiratie</strong> bouwen we aan een warme gemeenschap waar iedereen zich thuis mag voelen.
+              Respect, vertrouwen en geborgenheid zijn de fundamenten waarop onze school is gebouwd.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              We geloven dat elk kind uniek is en zijn eigen talenten heeft. Onze missie is om deze talenten
+              te ontdekken, te koesteren en te laten bloeien in een veilige en stimulerende omgeving.
+            </p>
+          </div>
+          <div className="relative">
+            <img
+              src="https://picsum.photos/600/500?random=52"
+              className="w-full h-[400px] object-cover rounded-2xl shadow-xl"
+              alt="School visie"
+            />
+            <div className="absolute -bottom-6 -left-6 bg-school-orange text-white p-6 rounded-xl shadow-lg">
+              <div className="text-4xl font-bold">50+</div>
+              <div className="text-sm">Jaar traditie</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Kernwaarden */}
+    <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="text-center mb-16">
+        <h2 className="text-4xl font-display font-bold text-school-dark mb-4">Onze Kernwaarden</h2>
+        <p className="text-xl text-gray-600">De pijlers van onze schoolgemeenschap</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-school-green hover:shadow-xl transition">
+          <div className="w-16 h-16 bg-school-green/10 rounded-full flex items-center justify-center mb-6">
+            <Users className="text-school-green" size={32} />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Verbondenheid</h3>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            We vormen een hechte gemeenschap waar leerlingen, ouders en leerkrachten samen bouwen aan een warme schoolcultuur.
+          </p>
+          <ul className="space-y-2">
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-green flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">Actieve ouderwerkgroep</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-green flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">Klasoverschrijdende activiteiten</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-green flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">Schoolfeesten en evenementen</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-school-red hover:shadow-xl transition">
+          <div className="w-16 h-16 bg-school-red/10 rounded-full flex items-center justify-center mb-6">
+            <Star className="text-school-red" size={32} />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Zorgen Voor Elkaar</h3>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            Elk kind verdient de beste kansen. Ons zorgteam staat klaar om elke leerling te begeleiden naar zijn of haar potentieel.
+          </p>
+          <ul className="space-y-2">
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-red flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">Gedifferentieerd onderwijs</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-red flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">Logopedie en remediëring</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-red flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">CLB-begeleiding</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-school-orange hover:shadow-xl transition">
+          <div className="w-16 h-16 bg-school-orange/10 rounded-full flex items-center justify-center mb-6">
+            <BookOpen className="text-school-orange" size={32} />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Groeien & Ontdekken</h3>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            We dagen kinderen uit om nieuwsgierig te blijven, nieuwe dingen te leren en zich continu te ontwikkelen.
+          </p>
+          <ul className="space-y-2">
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-orange flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">STEM-activiteiten</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-orange flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">Kunst & creatieve vorming</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check size={18} className="text-school-orange flex-shrink-0 mt-1"/>
+              <span className="text-sm text-gray-600">Sport en beweging</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {/* Zorg op Maat - Uitgebreide sectie */}
+    <div className="bg-gray-50 py-20">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="order-2 lg:order-1">
+            <img
+              src="https://picsum.photos/700/500?random=53"
+              className="w-full h-[500px] object-cover rounded-2xl shadow-lg"
+              alt="Zorgteam"
+            />
+          </div>
+          <div className="order-1 lg:order-2">
+            <div className="inline-block bg-school-green/10 px-4 py-2 rounded-full mb-4">
+              <span className="text-school-green font-bold text-sm uppercase tracking-wide">Zorg & Begeleiding</span>
+            </div>
+            <h2 className="text-4xl font-display font-bold text-school-dark mb-6 flex items-center gap-3">
+              <Users className="text-school-green"/>
+              Zorg Op Maat Voor Elk Kind
+            </h2>
+            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+              Elk kind heeft zijn eigen talenten, leerstijl en tempo. Ons ervaren <strong>zorgteam</strong> werkt
+              nauw samen met de klasleerkrachten om elk kind de ondersteuning te bieden die het nodig heeft.
+            </p>
+
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-school-green/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Check className="text-school-green" size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-1">Differentiatie in de Klas</h4>
+                  <p className="text-gray-600">Elke leerkracht past de lesstof aan zodat elk kind op zijn eigen niveau kan werken en groeien.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-school-green/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Check className="text-school-green" size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-1">Zorgleerkrachten</h4>
+                  <p className="text-gray-600">Gespecialiseerde begeleiding voor kinderen die extra ondersteuning nodig hebben bij lezen, rekenen of taal.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-school-green/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Check className="text-school-green" size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-1">Welbevinden & Emotioneel Welzijn</h4>
+                  <p className="text-gray-600">We hechten veel belang aan het welbevinden van elk kind. Een gelukkig kind leert beter.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-school-green/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Check className="text-school-green" size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-1">Samenwerking met CLB</h4>
+                  <p className="text-gray-600">Bij specifieke vragen of uitdagingen werken we samen met het Centrum voor Leerlingenbegeleiding.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Onze Aanpak */}
+    <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="text-center mb-16">
+        <h2 className="text-4xl font-display font-bold text-school-dark mb-4">Onze Onderwijsaanpak</h2>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          Modern onderwijs met respect voor traditie
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="bg-gradient-to-br from-school-red/5 to-white p-8 rounded-2xl border border-gray-100">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Christelijke Waarden</h3>
+          <p className="text-gray-700 leading-relaxed">
+            Onze christelijke identiteit vormt de basis van ons handelen. We leren kinderen respectvol
+            om te gaan met elkaar en hun omgeving, en aandacht te hebben voor wie het moeilijker heeft.
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-br from-school-green/5 to-white p-8 rounded-2xl border border-gray-100">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Kleinschaligheid</h3>
+          <p className="text-gray-700 leading-relaxed">
+            Door onze overzichtelijke grootte kennen we elk kind persoonlijk. Deze vertrouwde sfeer zorgt
+            ervoor dat kinderen zich veilig voelen om zichzelf te zijn en nieuwe uitdagingen aan te gaan.
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-br from-school-orange/5 to-white p-8 rounded-2xl border border-gray-100">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Moderne Methodieken</h3>
+          <p className="text-gray-700 leading-relaxed">
+            We werken met hedendaagse lesmethodes, digitale leermiddelen en blijven ons permanent bijscholen
+            om het beste onderwijs te garanderen.
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-br from-school-dark/5 to-white p-8 rounded-2xl border border-gray-100">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Brede Ontwikkeling</h3>
+          <p className="text-gray-700 leading-relaxed">
+            Naast de kerndoelen besteden we volop aandacht aan sport, kunst, muziek, natuur en sociale
+            vaardigheden. Want onderwijs is meer dan enkel lezen en rekenen.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* CTA */}
+    <div className="bg-gradient-to-r from-school-red to-school-orange py-16">
+      <div className="max-w-4xl mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+          Wil je meer weten over onze school?
+        </h2>
+        <p className="text-xl text-white/90 mb-8">
+          Kom gerust langs voor een kennismaking en rondleiding
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+            className="bg-white text-school-red font-bold px-8 py-4 rounded-xl hover:bg-gray-100 transition shadow-lg"
+          >
+            Plan een bezoek
+          </button>
+          <button
+            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+            className="bg-school-dark text-white font-bold px-8 py-4 rounded-xl hover:bg-gray-800 transition shadow-lg"
+          >
+            Bekijk ons team
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -495,11 +834,11 @@ const InfoPage = ({ config }: { config: SiteConfig }) => (
 );
 
 // --- ADMIN PANEL (CMS) ---
-const AdminPanel = ({ news, setNews, events, setEvents, config, setConfig, submissions }: any) => {
+const AdminPanel = ({ news, setNews, events, setEvents, config, setConfig, submissions, galleryImages, setGalleryImages }: any) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [password, setPassword] = useState('');
     const [activeTab, setActiveTab] = useState<'news' | 'events' | 'pages' | 'inbox' | 'photos'>('news');
-    
+
     // Editor States
     const [newsTitle, setNewsTitle] = useState('');
     const [newsContent, setNewsContent] = useState('');
@@ -509,6 +848,9 @@ const AdminPanel = ({ news, setNews, events, setEvents, config, setConfig, submi
 
     const [eventTitle, setEventTitle] = useState('');
     const [eventDate, setEventDate] = useState('');
+
+    // Gallery States
+    const [newImagePath, setNewImagePath] = useState('');
 
     // Handlers
     const handleLogin = () => (password === 'admin') ? setIsAuthenticated(true) : alert('Fout wachtwoord (probeer "admin")');
@@ -540,6 +882,30 @@ const AdminPanel = ({ news, setNews, events, setEvents, config, setConfig, submi
         const text = await generateNewsContent(newsTitle);
         setNewsContent(text);
         setIsGenerating(false);
+    };
+
+    // Gallery Handlers
+    const handleAddImage = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newImagePath.trim()) return alert('Voer een geldig foto pad in');
+        setGalleryImages([...galleryImages, newImagePath.trim()]);
+        setNewImagePath('');
+        alert('Foto toegevoegd aan galerij carousel!');
+    };
+
+    const handleRemoveImage = (index: number) => {
+        if (confirm('Weet je zeker dat je deze foto wilt verwijderen?')) {
+            setGalleryImages(galleryImages.filter((_: any, i: number) => i !== index));
+            alert('Foto verwijderd!');
+        }
+    };
+
+    const handleMoveImage = (index: number, direction: 'up' | 'down') => {
+        const newImages = [...galleryImages];
+        const targetIndex = direction === 'up' ? index - 1 : index + 1;
+        if (targetIndex < 0 || targetIndex >= newImages.length) return;
+        [newImages[index], newImages[targetIndex]] = [newImages[targetIndex], newImages[index]];
+        setGalleryImages(newImages);
     };
 
     if (!isAuthenticated) return (
@@ -663,89 +1029,121 @@ const AdminPanel = ({ news, setNews, events, setEvents, config, setConfig, submi
 
                         {activeTab === 'photos' && (
                             <div className="bg-white p-8 rounded-2xl shadow-sm">
-                                <h2 className="text-xl font-bold mb-6">Foto Beheer</h2>
+                                <h2 className="text-xl font-bold mb-6">Galerij Carousel Beheer</h2>
 
-                                <div className="bg-gradient-to-r from-school-orange to-school-red p-6 rounded-xl text-white mb-8">
+                                {/* Add New Photo */}
+                                <form onSubmit={handleAddImage} className="bg-gradient-to-r from-school-orange to-school-red p-6 rounded-xl text-white mb-8">
                                     <h3 className="font-bold text-lg mb-2 flex items-center gap-2">
-                                        <ImageIcon size={20} />
-                                        Upload Nieuwe Foto's
+                                        <Plus size={20} />
+                                        Nieuwe Foto Toevoegen
                                     </h3>
                                     <p className="text-white/90 text-sm mb-4">
-                                        Selecteer foto's om te uploaden naar de galerij. Ondersteunde formaten: JPG, PNG, GIF
+                                        Voer het pad in naar een foto (bijv. /images/gallery/foto.jpeg)
                                     </p>
-                                    <div className="border-2 border-dashed border-white/50 rounded-lg p-8 text-center hover:border-white hover:bg-white/10 transition cursor-pointer">
+                                    <div className="flex gap-3">
                                         <input
-                                            type="file"
-                                            multiple
-                                            accept="image/*"
-                                            className="hidden"
-                                            id="photo-upload"
-                                            onChange={(e) => {
-                                                if (e.target.files?.length) {
-                                                    alert(`${e.target.files.length} foto's geselecteerd. Upload functionaliteit komt binnenkort!`);
-                                                }
-                                            }}
+                                            type="text"
+                                            value={newImagePath}
+                                            onChange={(e) => setNewImagePath(e.target.value)}
+                                            placeholder="/images/gallery/nieuwe-foto.jpeg"
+                                            className="flex-1 px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
                                         />
-                                        <label htmlFor="photo-upload" className="cursor-pointer">
-                                            <Plus size={48} className="mx-auto mb-3 opacity-75" />
-                                            <p className="font-bold mb-1">Klik om foto's te selecteren</p>
-                                            <p className="text-sm text-white/75">Of sleep ze hierheen</p>
-                                        </label>
+                                        <button
+                                            type="submit"
+                                            className="bg-white text-school-red px-6 py-2 rounded-lg font-bold hover:bg-gray-100 transition flex items-center gap-2"
+                                        >
+                                            <Plus size={18} />
+                                            Toevoegen
+                                        </button>
                                     </div>
-                                </div>
+                                </form>
 
-                                <div className="space-y-6">
-                                    <div>
-                                        <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                {/* Current Gallery Images */}
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="font-bold text-lg flex items-center gap-2">
                                             <Camera size={20} className="text-school-green" />
-                                            Huidige Albums
+                                            Huidige Carousel Foto's ({galleryImages.length})
                                         </h3>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div className="border rounded-lg p-4 hover:shadow-md transition">
-                                                <div className="flex justify-between items-start mb-2">
-                                                    <div>
-                                                        <h4 className="font-bold">Kleuter Klooster</h4>
-                                                        <p className="text-sm text-gray-500">2 albums</p>
-                                                    </div>
-                                                    <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Actief</span>
-                                                </div>
-                                            </div>
-                                            <div className="border rounded-lg p-4 hover:shadow-md transition">
-                                                <div className="flex justify-between items-start mb-2">
-                                                    <div>
-                                                        <h4 className="font-bold">Lager</h4>
-                                                        <p className="text-sm text-gray-500">2 albums</p>
-                                                    </div>
-                                                    <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Actief</span>
-                                                </div>
-                                            </div>
-                                            <div className="border rounded-lg p-4 hover:shadow-md transition">
-                                                <div className="flex justify-between items-start mb-2">
-                                                    <div>
-                                                        <h4 className="font-bold">Verrekijker</h4>
-                                                        <p className="text-sm text-gray-500">1 album</p>
-                                                    </div>
-                                                    <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Actief</span>
-                                                </div>
-                                            </div>
-                                            <div className="border rounded-lg p-4 hover:shadow-md transition">
-                                                <div className="flex justify-between items-start mb-2">
-                                                    <div>
-                                                        <h4 className="font-bold">Algemeen</h4>
-                                                        <p className="text-sm text-gray-500">1 album</p>
-                                                    </div>
-                                                    <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Actief</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <span className="text-sm text-gray-500">
+                                            Deze foto's verschijnen op de "Over Ons" pagina
+                                        </span>
                                     </div>
 
-                                    <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                                        <h4 className="font-bold text-blue-800 mb-1 text-sm">Foto Beheer Tips</h4>
+                                    {galleryImages.length === 0 ? (
+                                        <div className="text-center py-12 bg-gray-50 rounded-lg">
+                                            <Camera size={48} className="mx-auto text-gray-300 mb-3" />
+                                            <p className="text-gray-500">Geen foto's in de galerij carousel</p>
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-3">
+                                            {galleryImages.map((imagePath: string, index: number) => (
+                                                <div key={index} className="border rounded-lg p-4 hover:shadow-md transition bg-white">
+                                                    <div className="flex items-center gap-4">
+                                                        {/* Preview */}
+                                                        <div className="w-24 h-24 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                                                            <img
+                                                                src={imagePath}
+                                                                alt={`Gallery ${index + 1}`}
+                                                                className="w-full h-full object-cover"
+                                                                onError={(e) => {
+                                                                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/100x100?text=Error';
+                                                                }}
+                                                            />
+                                                        </div>
+
+                                                        {/* Info */}
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-center gap-2 mb-1">
+                                                                <span className="bg-school-green/10 text-school-green text-xs px-2 py-1 rounded font-bold">
+                                                                    #{index + 1}
+                                                                </span>
+                                                                <span className="text-xs text-gray-400">
+                                                                    Positie in carousel
+                                                                </span>
+                                                            </div>
+                                                            <p className="text-sm text-gray-700 font-mono truncate">{imagePath}</p>
+                                                        </div>
+
+                                                        {/* Actions */}
+                                                        <div className="flex gap-2 flex-shrink-0">
+                                                            <button
+                                                                onClick={() => handleMoveImage(index, 'up')}
+                                                                disabled={index === 0}
+                                                                className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                                                                title="Omhoog"
+                                                            >
+                                                                <ChevronUp size={18} />
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleMoveImage(index, 'down')}
+                                                                disabled={index === galleryImages.length - 1}
+                                                                className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                                                                title="Omlaag"
+                                                            >
+                                                                <ChevronDown size={18} />
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleRemoveImage(index)}
+                                                                className="p-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition"
+                                                                title="Verwijderen"
+                                                            >
+                                                                <Trash2 size={18} />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mt-6">
+                                        <h4 className="font-bold text-blue-800 mb-1 text-sm">Tips</h4>
                                         <ul className="text-sm text-blue-700 space-y-1">
-                                            <li>• Upload foto's in hoge kwaliteit voor beste resultaat</li>
-                                            <li>• Organiseer foto's per locatie voor overzichtelijke galerij</li>
-                                            <li>• Verwijder oude foto's regelmatig om opslagruimte te besparen</li>
+                                            <li>• Foto paden moeten beginnen met /images/</li>
+                                            <li>• Gebruik de pijltjes om de volgorde aan te passen</li>
+                                            <li>• Wijzigingen zijn direct zichtbaar op de "Over Ons" pagina</li>
+                                            <li>• Let op de volgorde - eerste foto verschijnt centraal in de carousel</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -788,6 +1186,7 @@ function App() {
   const [news, setNews] = useState<NewsItem[]>(MOCK_NEWS);
   const [events, setEvents] = useState<CalendarEvent[]>(MOCK_EVENTS);
   const [submissions, setSubmissions] = useState<FormSubmission[]>(MOCK_SUBMISSIONS);
+  const [galleryImages, setGalleryImages] = useState<string[]>(GALLERY_IMAGES);
 
   const [team] = useState<Teacher[]>(MOCK_TEAM);
   const [albums] = useState<PhotoAlbum[]>(MOCK_ALBUMS);
@@ -802,7 +1201,7 @@ function App() {
   }, [news]);
 
   if (page === 'admin') {
-      return <AdminPanel news={news} setNews={setNews} events={events} setEvents={setEvents} config={config} setConfig={setConfig} submissions={submissions} />;
+      return <AdminPanel news={news} setNews={setNews} events={events} setEvents={setEvents} config={config} setConfig={setConfig} submissions={submissions} galleryImages={galleryImages} setGalleryImages={setGalleryImages} />;
   }
 
   return (
@@ -820,7 +1219,7 @@ function App() {
       
       <main className="flex-grow">
         {page === 'home' && <HomePage news={activeNews} setPage={setPage} config={config} />}
-        {page === 'about' && <AboutPage config={config} />}
+        {page === 'about' && <AboutPage config={config} galleryImages={galleryImages} />}
         {page === 'enroll' && <EnrollPage addSubmission={addSubmission} />}
         {page === 'team' && <TeamPage team={team} />}
         {page === 'news' && (
